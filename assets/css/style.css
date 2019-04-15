@@ -1,0 +1,47 @@
+body {
+    height: 100%;
+}
+
+.background {
+    background-image: url("../images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+.game-start {
+    display: none;
+}
+
+.top-container {
+    height: calc(100% / 3);
+    color: blue;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    padding: 2% 8% 2% 14%;
+
+}
+
+.boxed {
+    border-radius: 5px;
+    background-color: lawngreen;
+    padding: 10px;
+
+}
+
+.block-container {
+    height: calc(100% / 3);
+    text-align: center;
+}
+
+.block {
+    width: calc(100% / 6);
+    display: inline-block;
+    margin: 5px 10px 10px 5px;
+}
+
+.bottom-container {
+    height: 256px;
+}
+
