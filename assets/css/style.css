@@ -47,9 +47,16 @@ body {
     padding: 10px 10px 0px 10px;
 }
 
-#block-mario {
+#sign {
     position: fixed;
-    height: 200px;
+    height: 125px;
+    bottom: 15px;
+    right: -30px;
+}
+
+#grass {
+    position: fixed;
     bottom: 0px;
-    right: 0px;
+    height: 25px;
+    width: 100%;
 }

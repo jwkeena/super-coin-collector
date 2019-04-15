@@ -6,12 +6,13 @@ let losses = 0;
 let isPlaying = false;
 
 //all sound files
+const startGameSound = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_enter_course.wav");
 const coinSound1 = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav"); //why can't local files be found?
 const coinSound2 = new Audio("https://themushroomkingdom.net/sounds/wav/smw/smw_coin.wav");
 const coinSound3 = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_coin.wav");
 const coinSound4 = new Audio("https://themushroomkingdom.net/sounds/wav/nsmb_coin.wav");
 const winSound = new Audio("http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Stage_Clear_Sound_Effect.mp3")
-
+const loseSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_mariodie.wav");
 
 //toggles logo style
 let switchLogo = true;
@@ -20,7 +21,7 @@ $("#logo").on("click", function () {
         $('#logo').attr("src", "assets/images/logo-smm.png");
         $('#logo').css("height", "60px");
         $('#logo').css("width", "700px");
-        $('#logo').css("margin", "5% 0px");
+        $('#logo').css("margin", "3% 0px");
         switchLogo = !switchLogo;
     } else {
         $('#logo').attr("src", "assets/images/logo.png");
@@ -32,22 +33,16 @@ $("#logo").on("click", function () {
 })
 
 //toggles instructions -- https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle -- also possible: slide effect https://api.jqueryui.com/slide-effect/
-$("#block-mario").click(function() {
+$("#sign").click(function() {
     $( "#instructions-panel" ).slideToggle( "slow" ); 
   });
-
-//starts game and resets values
-$("#start-button").on("click", function () {
-    $(".instructions").css("display", "none");
-    $(".game-start").css("display", "block");
-    gameFunctions.newGame();
-})
 
 //individual block event listeners (works, but not DRY)
 //should rewrite the entire code block as a function with arguments in gameFunctions
 $("#block1").click(function() {
     if (isPlaying === false) {
         gameFunctions.newGame();
+        startGameSound.play();
     } else {
         $("#block1").effect( "bounce", {times: 1}, "fast");
         coinSound1.pause();
@@ -138,13 +133,14 @@ const gameFunctions = {
         }
     },
     win: function() {
+        winSound.play();
         wins++;
         $("#wins").text(wins);
-        winSound.play();
         alert("You win! You collected exactly " + targetCoins + " coins!"); //replace later with the custom gif
         this.newGame();
     },
     lose: function() {
+        loseSound.play();
         losses++;
         $("#losses").text(losses);
         alert("You lose! You collected " + currentCoins + " but only needed " + targetCoins + ".");
