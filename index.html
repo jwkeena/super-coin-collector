@@ -7,52 +7,48 @@
     <!-- Added link to the jQuery Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-     <!-- Added link to the jQuery UI Library -->
-     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <!-- Added link to the jQuery UI Library -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     
-
-    <!-- Added a link to our external stylesheet-->
+    <!-- Added link to our custom stylesheet-->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Added alink to external font-->
+    <!-- Added link to external font-->
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 
 </head>
 <body>
 
+<div id="instructions-bar"> 
+    <div id="instructions-panel">
+        <p>Every game, you will be assigned a random total number of coins.</p><br>
+        <p>There are four blocks below. By clicking a box, you will add a specific number of coins to your total.</p><br>
+        <p>You win the game by matching the number of coins exactly. You lose the game if your total score goes above the target number.</p><br>
+        <p>Every time the game starts, the coin value of each block will change.</p><br>
+    </div>
+</div>
+
 <div class="logo-container">
     <img id = "logo" src="assets/images/logo.png"> 
     <!-- Thanks to https://www.festisite.com/logo/super-mario/ and -->
 </div>
+
 <div class="block-container">
     <img class = "block" id="block1" src="assets/images/8-bit-block.png">
     <img class = "block" id="block2" src="assets/images/16-bit-block.png">
     <img class = "block" id="block3" src="assets/images/64-bit-block.png">
     <img class = "block" id="block4" src="assets/images/Question_Block_3D.png">
 </div>
-    
-<div class="bottom-container">
-    
-    <div class="instructions">
-        <p class = "instructions">Every game, you will be assigned a random total number of coins.</p><br>
-        <p class = "instructions">There are four blocks below. By clicking a box, you will add a specific number of coins to your total.</p><br>
-        <p class = "instructions">You win the game by matching the number of coins exactly. You lose the game if your total score goes above the target number.</p><br>
-        <p class = "instructions">Every time the game starts, the coin value of each block will change.</p><br>
-        <button id="start-button" class = "instructions">START GAME</button>
-    </div>
 
-    <div class =  "game-start">
-        <p class = "game-start">Coin target: <span id="coin-target"></span></p>
-        <p class = "game-start">Current coins: <span id="current-coins">0</span></p>
-        <p class = "game-start">Wins: <span id="wins">0</span></p>
-        <p class = "game-start">Losses: <span id="losses">0</span></p>
-    </div>
 
+<div class = "game-start">
+    <p class = "game-start">Coin target: <span id="coin-target"></span></p>
+    <p class = "game-start">Current coins: <span id="current-coins">0</span></p>
+    <p class = "game-start">Wins: <span id="wins">0</span></p>
+    <p class = "game-start">Losses: <span id="losses">0</span></p>
 </div>
-
 
 <img id="block-mario" src="assets/images/block-mario.jpg">
 

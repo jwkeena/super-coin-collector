@@ -2,34 +2,25 @@ body {
     background-color: rgb(250, 205, 0);
 }
 
-/* .background {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
-
 .logo-container {
     text-align: center;
 }
 
 #logo {
-    height: 250px;
+    /* I want the height and width to be calculated dynamically */
+    height: 250px; 
     width: 400px;
     display: inline-block;
-    margin: 3% 0%;
+    margin: 10px;
 }
 
 .game-start {
-    display: none;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 25px;
 }
 
-.bottom-container {
-    height: calc(100% / 3);
-    color: blue;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 15px;
-    padding: 2% 8% 2% 14%;
-}
 
 .block-container {
     height: calc(100% / 3);
@@ -37,14 +28,24 @@ body {
 }
 
 .block {
-    width: calc(100% / 7.5);
+    width: calc(100% / 9);
     display: inline-block;
-    margin: 5px 10px 10px 5px;
+    margin: 0px 10px 10px 0px;
 }
 
-/* .bottom-container {
-    height: 256px;
-} */
+#instructions-bar {
+    font-family: 'Press Start 2P', cursive;
+    color: rgb(250, 205, 0);
+    font-size: 15px;
+    padding: 1% 20%;
+}
+
+#instructions-panel {
+    display: none;
+    background-color: blue;
+    border-radius: 10px;
+    padding: 10px 10px 0px 10px;
+}
 
 #block-mario {
     position: fixed;

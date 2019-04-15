@@ -3,6 +3,7 @@ let currentCoins = 0;
 let hiddenCoins = [];
 let wins = 0;
 let losses = 0;
+let isPlaying = false;
 
 //all sound files
 const coinSound1 = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav"); //why can't local files be found?
@@ -12,7 +13,7 @@ const coinSound4 = new Audio("https://themushroomkingdom.net/sounds/wav/nsmb_coi
 const winSound = new Audio("http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Stage_Clear_Sound_Effect.mp3")
 
 
-//toggles logo
+//toggles logo style
 let switchLogo = true;
 $("#logo").on("click", function () {
     if (switchLogo) {
@@ -25,11 +26,15 @@ $("#logo").on("click", function () {
         $('#logo').attr("src", "assets/images/logo.png");
         $('#logo').css("height", "250px");
         $('#logo').css("width", "400px");
-        $('#logo').css("margin", "3% 0px");
+        $('#logo').css("margin", "10px");
         switchLogo = !switchLogo;
     }
 })
 
+//toggles instructions -- https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle -- also possible: slide effect https://api.jqueryui.com/slide-effect/
+$("#block-mario").click(function() {
+    $( "#instructions-panel" ).slideToggle( "slow" ); 
+  });
 
 //starts game and resets values
 $("#start-button").on("click", function () {
@@ -41,48 +46,65 @@ $("#start-button").on("click", function () {
 //individual block event listeners (works, but not DRY)
 //should rewrite the entire code block as a function with arguments in gameFunctions
 $("#block1").click(function() {
-    $("#block1").effect( "bounce", {times: 1}, "fast");
-    coinSound1.pause();
-    coinSound1.currentTime = 0;
-    coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
-    currentCoins = currentCoins + hiddenCoins[0];
-    $("#current-coins").text(currentCoins);
-    gameFunctions.checkWinOrLose();
+    if (isPlaying === false) {
+        gameFunctions.newGame();
+    } else {
+        $("#block1").effect( "bounce", {times: 1}, "fast");
+        coinSound1.pause();
+        coinSound1.currentTime = 0;
+        coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
+        currentCoins = currentCoins + hiddenCoins[0];
+        $("#current-coins").text(currentCoins);
+        gameFunctions.checkWinOrLose();
+    }
   });
 
 $("#block2").click(function() {
-    $("#block2").effect( "bounce", {times: 1}, "fast");
-    coinSound2.pause();
-    coinSound2.currentTime = 0;
-    coinSound2.play();
-    currentCoins = currentCoins + hiddenCoins[1];
-    $("#current-coins").text(currentCoins);
-    gameFunctions.checkWinOrLose();
+    if (isPlaying === false) {
+        gameFunctions.newGame();
+    } else {
+        $("#block2").effect( "bounce", {times: 1}, "fast");
+        coinSound2.pause();
+        coinSound2.currentTime = 0;
+        coinSound2.play();
+        currentCoins = currentCoins + hiddenCoins[1];
+        $("#current-coins").text(currentCoins);
+        gameFunctions.checkWinOrLose();
+        }    
     });
 
 $("#block3").click(function() {
+    if (isPlaying === false) {
+        gameFunctions.newGame();
+    } else {
     $("#block3").effect( "bounce", {times: 1}, "fast");
-    coinSound3.pause();
-    coinSound3.currentTime = 0;
-    coinSound3.play();
-    currentCoins = currentCoins + hiddenCoins[2];
-    $("#current-coins").text(currentCoins);
-    gameFunctions.checkWinOrLose();
+        coinSound3.pause();
+        coinSound3.currentTime = 0;
+        coinSound3.play();
+        currentCoins = currentCoins + hiddenCoins[2];
+        $("#current-coins").text(currentCoins);
+        gameFunctions.checkWinOrLose();
+        }
     });
 
 $("#block4").click(function() {
+    if (isPlaying === false) {
+        gameFunctions.newGame();
+    } else {
     $("#block4").effect( "bounce", {times: 1}, "fast");
-    coinSound4.pause();
-    coinSound4.currentTime = 0;
-    coinSound4.play();
-    currentCoins = currentCoins + hiddenCoins[3];
-    $("#current-coins").text(currentCoins);
-    gameFunctions.checkWinOrLose();
+        coinSound4.pause();
+        coinSound4.currentTime = 0;
+        coinSound4.play();
+        currentCoins = currentCoins + hiddenCoins[3];
+        $("#current-coins").text(currentCoins);
+        gameFunctions.checkWinOrLose();
+    }
     });
 
 // collects all functions that manage the game in one object
 const gameFunctions = {
     newGame: function () {
+        isPlaying = true;
         this.resetVariables();
         this.newTargetNumber();
         this.newHiddenCoinValues();
