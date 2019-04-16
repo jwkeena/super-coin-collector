@@ -7,11 +7,11 @@ body {
 }
 
 #logo {
+    height: 150px; 
+    width: 250px;
     /* I want the height and width to be calculated dynamically */
-    height: 250px; 
-    width: 400px;
     display: inline-block;
-    margin: 10px;
+    margin: 0px 0px 10px 0px;
 }
 
 .game-start {
@@ -21,7 +21,6 @@ body {
     font-size: 25px;
 }
 
-
 .block-container {
     height: calc(100% / 3);
     text-align: center;
@@ -30,7 +29,7 @@ body {
 .block {
     width: calc(100% / 9);
     display: inline-block;
-    margin: 0px 10px 10px 0px;
+    margin: 0px 40px 40px 0px;
 }
 
 #instructions-bar {
@@ -50,13 +49,21 @@ body {
 #sign {
     position: fixed;
     height: 125px;
-    bottom: 15px;
-    right: -30px;
+    bottom: 27px;
+    right: 5%;
+    z-index: 99;
 }
 
 #grass {
     position: fixed;
     bottom: 0px;
-    height: 25px;
+    height: 35px;
     width: 100%;
+}
+
+#mario {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    bottom: 35px;
 }

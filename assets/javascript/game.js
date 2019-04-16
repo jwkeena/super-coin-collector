@@ -1,3 +1,4 @@
+//all global variables
 let targetCoins = 0;
 let currentCoins = 0;
 let hiddenCoins = [];
@@ -25,76 +26,112 @@ $("#logo").on("click", function () {
         switchLogo = !switchLogo;
     } else {
         $('#logo').attr("src", "assets/images/logo.png");
-        $('#logo').css("height", "250px");
-        $('#logo').css("width", "400px");
-        $('#logo').css("margin", "10px");
+        $('#logo').css("height", "150px");
+        $('#logo').css("width", "220px");
+        $('#logo').css("margin", "0px 0px 10px 0px");
         switchLogo = !switchLogo;
     }
 })
 
 //toggles instructions -- https://www.w3schools.com/jquery/tryit.asp?filename=tryjquery_slide_toggle -- also possible: slide effect https://api.jqueryui.com/slide-effect/
 $("#sign").click(function() {
-    $( "#instructions-panel" ).slideToggle( "slow" ); 
+    $( "#instructions-panel" ).slideToggle("slow"); 
   });
 
-//individual block event listeners (works, but not DRY)
-//should rewrite the entire code block as a function with arguments in gameFunctions
-$("#block1").click(function() {
-    if (isPlaying === false) {
-        gameFunctions.newGame();
-        startGameSound.play();
-    } else {
-        $("#block1").effect( "bounce", {times: 1}, "fast");
-        coinSound1.pause();
-        coinSound1.currentTime = 0;
-        coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
-        currentCoins = currentCoins + hiddenCoins[0];
-        $("#current-coins").text(currentCoins);
-        gameFunctions.checkWinOrLose();
-    }
-  });
+//mario controls
+$(document).mousemove(function(e){ //modified from http://jsfiddle.net/BfLAh/1/
+    $("#mario").css({left:e.pageX});
+});
 
-$("#block2").click(function() {
-    if (isPlaying === false) {
-        gameFunctions.newGame();
-    } else {
-        $("#block2").effect( "bounce", {times: 1}, "fast");
-        coinSound2.pause();
-        coinSound2.currentTime = 0;
-        coinSound2.play();
-        currentCoins = currentCoins + hiddenCoins[1];
-        $("#current-coins").text(currentCoins);
-        gameFunctions.checkWinOrLose();
-        }    
-    });
+$(document).on("click", function () {
+    // if (isPlaying === false) {
+    //     gameFunctions.newGame();
+    //     startGameSound.play();
+    // } else {
+        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");
+    
+    // }
+})
 
-$("#block3").click(function() {
-    if (isPlaying === false) {
-        gameFunctions.newGame();
-    } else {
-    $("#block3").effect( "bounce", {times: 1}, "fast");
-        coinSound3.pause();
-        coinSound3.currentTime = 0;
-        coinSound3.play();
-        currentCoins = currentCoins + hiddenCoins[2];
-        $("#current-coins").text(currentCoins);
-        gameFunctions.checkWinOrLose();
-        }
-    });
+//collision detection
 
-$("#block4").click(function() {
-    if (isPlaying === false) {
-        gameFunctions.newGame();
-    } else {
-    $("#block4").effect( "bounce", {times: 1}, "fast");
-        coinSound4.pause();
-        coinSound4.currentTime = 0;
-        coinSound4.play();
-        currentCoins = currentCoins + hiddenCoins[3];
-        $("#current-coins").text(currentCoins);
-        gameFunctions.checkWinOrLose();
-    }
-    });
+
+
+
+
+// console.log(marioBoundingBox.top, marioBoundingBox.right, marioBoundingBox.bottom, marioBoundingBox.left);
+// console.log(block1BoundingBox.top, block1BoundingBox.right, block1BoundingBox.bottom, block1BoundingBox.left);
+
+//only checks for collision once per click, after the time it takes for mario to jump
+$(document).on("click", function(){ //modified from http://jsfiddle.net/BfLAh/1/
+    setTimeout(collisionCheck, 100);
+});
+
+function collisionCheck() {
+    var mario = document.getElementById("mario");
+    var block1 = document.getElementById("block1");
+    var block2 = document.getElementById("block2");
+    var block3= document.getElementById("block3");
+    var block4 = document.getElementById("block4");
+    var marioBoundingBox = mario.getBoundingClientRect();
+    var block1BoundingBox = block1.getBoundingClientRect();
+    var block2BoundingBox = block2.getBoundingClientRect();
+    var block3BoundingBox = block3.getBoundingClientRect();
+    var block4BoundingBox = block4.getBoundingClientRect();
+    if (marioBoundingBox.top < block1BoundingBox.bottom 
+        && marioBoundingBox.left < block1BoundingBox.right
+        && marioBoundingBox.right > block1BoundingBox.left) {
+        $("#block1").effect("bounce", {times: 1}, "fast");
+            coinSound1.pause();
+            coinSound1.currentTime = 0;
+            coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
+            currentCoins = currentCoins + hiddenCoins[0];
+            $("#current-coins").text(currentCoins);
+            gameFunctions.checkWinOrLose();
+        } else {
+            console.log("no collision")
+        } 
+    if (marioBoundingBox.top < block2BoundingBox.bottom 
+        && marioBoundingBox.left < block2BoundingBox.right
+        && marioBoundingBox.right > block2BoundingBox.left) {
+        $("#block2").effect("bounce", {times: 1}, "fast");
+            coinSound2.pause();
+            coinSound2.currentTime = 0;
+            coinSound2.play();
+            currentCoins = currentCoins + hiddenCoins[1];
+            $("#current-coins").text(currentCoins);
+            gameFunctions.checkWinOrLose();
+        } else {
+            console.log("no collision")
+        } 
+    if (marioBoundingBox.top < block3BoundingBox.bottom 
+        && marioBoundingBox.left < block3BoundingBox.right
+        && marioBoundingBox.right > block3BoundingBox.left) {
+            $("#block3").effect("bounce", {times: 1}, "fast");
+            coinSound3.pause();
+            coinSound3.currentTime = 0;
+            coinSound3.play();
+            currentCoins = currentCoins + hiddenCoins[2];
+            $("#current-coins").text(currentCoins);
+            gameFunctions.checkWinOrLose();
+        } else {
+            console.log("no collision")
+        } 
+    if (marioBoundingBox.top < block4BoundingBox.bottom 
+        && marioBoundingBox.left < block4BoundingBox.right
+        && marioBoundingBox.right > block4BoundingBox.left) {
+            $("#block4").effect("bounce", {times: 1}, "fast");
+            coinSound4.pause();
+            coinSound4.currentTime = 0;
+            coinSound4.play();
+            currentCoins = currentCoins + hiddenCoins[3];
+            $("#current-coins").text(currentCoins);
+            gameFunctions.checkWinOrLose();
+        } else {
+            console.log("no collision")
+        } 
+}
+
 
 // collects all functions that manage the game in one object
 const gameFunctions = {
@@ -115,7 +152,6 @@ const gameFunctions = {
         let newTarget = Math.floor(Math.random()*121 + 19);
         targetCoins = newTarget;
         $("#coin-target").text(newTarget);
-        //print to html
     },
     newHiddenCoinValues: function () {
         for (i = 1; i < 5; i++) {
@@ -165,7 +201,6 @@ const gameFunctions = {
 // $(".block").on("click", function () {
 //     console.log("works");
 // })
-
 
 // trying to dynamically select which button is picked so that it bounces (doesn't work)
 // $(".block").on("click", function() {
