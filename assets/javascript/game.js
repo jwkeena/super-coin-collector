@@ -12,6 +12,7 @@ const coinSound1 = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_
 const coinSound2 = new Audio("https://themushroomkingdom.net/sounds/wav/smw/smw_coin.wav");
 const coinSound3 = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_coin.wav");
 const coinSound4 = new Audio("https://themushroomkingdom.net/sounds/wav/nsmb_coin.wav");
+const jumpSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_jump-small.wav")
 const winSound = new Audio("http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Stage_Clear_Sound_Effect.mp3")
 const loseSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_mariodie.wav");
 
@@ -39,18 +40,58 @@ $("#sign").click(function() {
   });
 
 //mario controls
+//x-axis motion
 $(document).mousemove(function(e){ //modified from http://jsfiddle.net/BfLAh/1/
     $("#mario").css({left:e.pageX});
 });
-
+//starts game, and jumping
 $(document).on("click", function () {
     if (isPlaying === false) {
         gameFunctions.newGame();
         startGameSound.play();
     } else {
-        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");    
+        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");
+        isJumping = true;
+        jumpSound.pause();
+        jumpSound.currentTime = 0;
+        jumpSound.play();
+        changeSprite();
     }
+    setTimeout(jumpIsOver, 200)
 })
+
+//grabs mouse direction whenever mouse is moved, to determine which direction it's going
+//and change sprite accordingly -- https://stackoverflow.com/questions/24294452/detect-mouse-direction-javascript
+var mouseDirection = "",
+    oldx = 0,
+    mousemovemethod = function (e) {
+        if (e.pageX < oldx) {
+            mouseDirection = "left";
+        } else if (e.pageX > oldx) {
+            mouseDirection = "right";
+        }
+        changeSprite();
+        oldx = e.pageX;
+}
+document.addEventListener('mousemove', mousemovemethod);
+
+//controls which of the 4 sprites is being used
+let isJumping = false;
+function jumpIsOver() {
+    isJumping = false;
+    changeSprite();
+}
+function changeSprite() {
+    if (isJumping === false && mouseDirection === "left"){
+        $("#mario").attr("src", "assets/images/mario-left.png");
+    } else if (isJumping === false && mouseDirection === "right"){
+        $("#mario").attr("src", "assets/images/mario-right.png");
+    } else if (isJumping === true && mouseDirection === "left"){
+        $("#mario").attr("src", "assets/images/mario-jumping-left.png");
+    } else if (isJumping === true && mouseDirection === "right") {
+        $("#mario").attr("src", "assets/images/mario-jumping-right.png");
+    }
+}
 
 //collision detection
 //only checks for collision once per click, after the aprrox time it takes for mario to jump
