@@ -7,7 +7,7 @@ let losses = 0;
 let isPlaying = false;
 
 //all sound files
-const startGameSound = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_enter_course.wav");
+const startGameSound = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_mario_lets_go.wav");
 const coinSound1 = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav"); //why can't local files be found?
 const coinSound2 = new Audio("https://themushroomkingdom.net/sounds/wav/smw/smw_coin.wav");
 const coinSound3 = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_coin.wav");
@@ -44,25 +44,16 @@ $(document).mousemove(function(e){ //modified from http://jsfiddle.net/BfLAh/1/
 });
 
 $(document).on("click", function () {
-    // if (isPlaying === false) {
-    //     gameFunctions.newGame();
-    //     startGameSound.play();
-    // } else {
-        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");
-    
-    // }
+    if (isPlaying === false) {
+        gameFunctions.newGame();
+        startGameSound.play();
+    } else {
+        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");    
+    }
 })
 
 //collision detection
-
-
-
-
-
-// console.log(marioBoundingBox.top, marioBoundingBox.right, marioBoundingBox.bottom, marioBoundingBox.left);
-// console.log(block1BoundingBox.top, block1BoundingBox.right, block1BoundingBox.bottom, block1BoundingBox.left);
-
-//only checks for collision once per click, after the time it takes for mario to jump
+//only checks for collision once per click, after the aprrox time it takes for mario to jump
 $(document).on("click", function(){ //modified from http://jsfiddle.net/BfLAh/1/
     setTimeout(collisionCheck, 100);
 });
@@ -131,7 +122,6 @@ function collisionCheck() {
             console.log("no collision")
         } 
 }
-
 
 // collects all functions that manage the game in one object
 const gameFunctions = {
