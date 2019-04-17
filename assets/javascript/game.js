@@ -18,17 +18,17 @@ const loseSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_m
 
 //toggles logo style
 let switchLogo = true;
-$("#logo").on("click", function () {
+$("#logo").on("dblclick", function () {
     if (switchLogo) {
         $('#logo').attr("src", "assets/images/logo-smm.png");
-        $('#logo').css("height", "60px");
-        $('#logo').css("width", "700px");
-        $('#logo').css("margin", "3% 0px");
+        $('#logo').css("height", "15vh");
+        $('#logo').css("width", "170vh");
+        $('#logo').css("margin", "3% 0vh");
         switchLogo = !switchLogo;
     } else {
         $('#logo').attr("src", "assets/images/logo.png");
-        $('#logo').css("height", "150px");
-        $('#logo').css("width", "220px");
+        $('#logo').css("height", "25vh");
+        $('#logo').css("width", "40vh");
         $('#logo').css("margin", "0px 0px 10px 0px");
         switchLogo = !switchLogo;
     }
@@ -50,14 +50,14 @@ $(document).on("click", function () {
         gameFunctions.newGame();
         startGameSound.play();
     } else {
-        $("#mario").effect("bounce", {times: 1, distance: 275}, "fast");
+        $("#mario").effect("bounce", {times: 1, distance: 285}, "fast");
         isJumping = true;
         jumpSound.pause();
         jumpSound.currentTime = 0;
         jumpSound.play();
         changeSprite();
     }
-    setTimeout(jumpIsOver, 200)
+    setTimeout(jumpIsOver, 200);
 })
 
 //grabs mouse direction whenever mouse is moved, to determine which direction it's going
@@ -99,6 +99,7 @@ $(document).on("click", function(){ //modified from http://jsfiddle.net/BfLAh/1/
     setTimeout(collisionCheck, 100);
 });
 
+//this code can certainly be refactored into smaller functions!
 function collisionCheck() {
     var mario = document.getElementById("mario");
     var block1 = document.getElementById("block1");
@@ -113,58 +114,70 @@ function collisionCheck() {
     if (marioBoundingBox.top < block1BoundingBox.bottom 
         && marioBoundingBox.left < block1BoundingBox.right
         && marioBoundingBox.right > block1BoundingBox.left) {
-        $("#block1").effect("bounce", {times: 1}, "fast");
+            $("#block1").effect("bounce", {times: 1}, "fast");
+            $("#hidden-number1").text(hiddenCoins[0]);
+            //clones and replaces the number span so that the animation can restart
+            //trick from https://css-tricks.com/restart-css-animation/
+                var element = document.getElementById("hidden-number1");
+                var newElement = element.cloneNode(true);
+                element.parentNode.replaceChild(newElement, element);
             coinSound1.pause();
             coinSound1.currentTime = 0;
             coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
             currentCoins = currentCoins + hiddenCoins[0];
             $("#current-coins").text(currentCoins);
             gameFunctions.checkWinOrLose();
-        } else {
-            console.log("no collision")
-        } 
-    if (marioBoundingBox.top < block2BoundingBox.bottom 
+    } else if (marioBoundingBox.top < block2BoundingBox.bottom 
         && marioBoundingBox.left < block2BoundingBox.right
         && marioBoundingBox.right > block2BoundingBox.left) {
-        $("#block2").effect("bounce", {times: 1}, "fast");
+            $("#block2").effect("bounce", {times: 1}, "fast");
+            $("#hidden-number2").text(hiddenCoins[1]);
+            //clones and replaces the number span so that the animation can restart
+                var element = document.getElementById("hidden-number2");
+                var newElement = element.cloneNode(true);
+                element.parentNode.replaceChild(newElement, element);    
             coinSound2.pause();
             coinSound2.currentTime = 0;
             coinSound2.play();
             currentCoins = currentCoins + hiddenCoins[1];
             $("#current-coins").text(currentCoins);
             gameFunctions.checkWinOrLose();
-        } else {
-            console.log("no collision")
-        } 
-    if (marioBoundingBox.top < block3BoundingBox.bottom 
+    } else if (marioBoundingBox.top < block3BoundingBox.bottom 
         && marioBoundingBox.left < block3BoundingBox.right
         && marioBoundingBox.right > block3BoundingBox.left) {
             $("#block3").effect("bounce", {times: 1}, "fast");
+            $("#hidden-number3").text(hiddenCoins[2]);
+        //clones and replaces the number span so that the animation can restart
+                var element = document.getElementById("hidden-number3");
+                var newElement = element.cloneNode(true);
+                element.parentNode.replaceChild(newElement, element);  
             coinSound3.pause();
             coinSound3.currentTime = 0;
             coinSound3.play();
             currentCoins = currentCoins + hiddenCoins[2];
             $("#current-coins").text(currentCoins);
             gameFunctions.checkWinOrLose();
-        } else {
-            console.log("no collision")
-        } 
-    if (marioBoundingBox.top < block4BoundingBox.bottom 
+    } else if (marioBoundingBox.top < block4BoundingBox.bottom 
         && marioBoundingBox.left < block4BoundingBox.right
         && marioBoundingBox.right > block4BoundingBox.left) {
             $("#block4").effect("bounce", {times: 1}, "fast");
+            $("#hidden-number4").text(hiddenCoins[3]);
+        //clones and replaces the number span so that the animation can restart
+                var element = document.getElementById("hidden-number4");
+                var newElement = element.cloneNode(true);
+                element.parentNode.replaceChild(newElement, element);  
             coinSound4.pause();
             coinSound4.currentTime = 0;
             coinSound4.play();
             currentCoins = currentCoins + hiddenCoins[3];
-            $("#current-coins").text(currentCoins);
-            gameFunctions.checkWinOrLose();
-        } else {
-            console.log("no collision")
-        } 
+        $("#current-coins").text(currentCoins);
+        gameFunctions.checkWinOrLose();
+    } else {
+        console.log("no collision");
+    }
 }
 
-// collects all functions that manage the game in one object
+// collects all functions that manage the game's logic in one object
 const gameFunctions = {
     newGame: function () {
         isPlaying = true;
@@ -218,24 +231,24 @@ const gameFunctions = {
 
 // failed DRY block bounce event listener solutions
 
-// trying to add event listeners to multiple elements via a loop (doesn't work)
-// for (i = 1; i < 5; i ++) {
-//     let newId = "#button" + i;
-//     console.log(newId);
-//     $(newId).click(function () {
-//         console.log("works");
-//         $(newId).effect("bounce", "slow")
-//     })
-// }
+    // trying to add event listeners to multiple elements via a loop (doesn't work)
+    // for (i = 1; i < 5; i ++) {
+    //     let newId = "#button" + i;
+    //     console.log(newId);
+    //     $(newId).click(function () {
+    //         console.log("works");
+    //         $(newId).effect("bounce", "slow")
+    //     })
+    // }
 
-// Block class event listeners (works, but only for the whole div)
-// $(".block").on("click", function () {
-//     console.log("works");
-// })
+    // Block class event listeners (works, but only for the whole div)
+    // $(".block").on("click", function () {
+    //     console.log("works");
+    // })
 
-// trying to dynamically select which button is picked so that it bounces (doesn't work)
-// $(".block").on("click", function() {
-//     var buttonPicked = $(".block").attr("id");
-//     console.log(buttonPicked);
-//    $(buttonPicked).effect("bounce", "slow")
-// })
+    // trying to dynamically select which button is picked so that it bounces (doesn't work)
+    // $(".block").on("click", function() {
+    //     var buttonPicked = $(".block").attr("id");
+    //     console.log(buttonPicked);
+    //    $(buttonPicked).effect("bounce", "slow")
+    // })

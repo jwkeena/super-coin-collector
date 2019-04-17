@@ -1,39 +1,4 @@
-body {
-    background-color: rgb(250, 205, 0);
-}
-
-.logo-container {
-    text-align: center;
-}
-
-#logo {
-    height: 150px; 
-    width: 250px;
-    /* I want the height and width to be calculated dynamically */
-    display: inline-block;
-    margin: 0px 0px 10px 0px;
-}
-
-.game-start {
-    font-family: 'Press Start 2P', cursive;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 25px;
-}
-
-.block-container {
-    height: calc(100% / 3);
-    text-align: center;
-}
-
-.block {
-    width: calc(100% / 9);
-    display: inline-block;
-    margin: 0px 40px 40px 0px;
-}
-
 #instructions-bar {
-    font-family: 'Press Start 2P', cursive;
     color: rgb(250, 205, 0);
     font-size: 15px;
     padding: 1% 20%;
@@ -46,17 +11,83 @@ body {
     padding: 10px 10px 0px 10px;
 }
 
+body {
+    background-color: rgb(250, 205, 0);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.logo-container {
+    text-align: center;
+
+}
+
+#logo {
+    z-index: -2;
+    height: 25vh;
+    width: 40vh;
+    display: inline-block;
+    margin: 0px 0px 10px 0px;
+}
+
+.hidden-numbers-container {
+    text-align: center;
+    font-size: 40px;
+}
+
+#hidden-number1, #hidden-number2, #hidden-number3, #hidden-number4 {
+    z-index: -1;
+    position: relative; /*necessary for the animation to work*/
+    bottom: -100px;
+    display: inline-block;
+    width: calc(100%/8);
+    -webkit-animation: slide .8s; /* Safari 4.0 - 8.0 */
+    animation: slide .8s 1;
+    {animation-timing-function: ease-out;}
+}
+
+@keyframes slide {
+    0%    {color: yellow; left:0px; bottom:-20px;}
+    100%  {color: blue; left:0px; bottom:0px;}
+    100%  {left:0px; bottom:15px;}
+  }
+
+@-webkit-keyframes slide {
+    0%    {color: yellow; left:0px; bottom:-20px;}
+    100%  {color: blue; left:0px; bottom:0px;}
+    100%  {left:0px; bottom:15px;}
+}
+
+.block-container {
+    height: calc(100% / 3);
+    text-align: center;
+    
+}
+
+.block {
+    width: calc(100% / 9);
+    display: inline-block;
+    margin: 0px 40px 40px 0px;
+}
+
+.game-start {
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+
 #sign {
     position: fixed;
     height: 125px;
-    bottom: 27px;
-    right: 5%;
+    bottom: 21px;
+    right: 1%;
     z-index: 99;
 }
 
 #grass {
     position: fixed;
-    bottom: 0px;
+    bottom: -5px;
     height: 35px;
     width: 100%;
 }
@@ -65,5 +96,6 @@ body {
     position: absolute;
     width: 125px;
     height: 125px;
-    bottom: 35px;
+    bottom: 30px;
 }
+
