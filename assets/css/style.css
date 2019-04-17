@@ -32,9 +32,8 @@ body {
     width: 15vh;
     float: left;
     position: relative;
-    top: 0vh;
     display: none;
-    
+    bottom: 10vh;
 }
 
 #easterEgg {
@@ -44,13 +43,13 @@ body {
 }
 
 @keyframes descend {
-    0% {left: 0px; top:-80vh;}
-    100% {left: 0px; top: evh;}
+    0% {left: 0px; top:-70vh;}
+    100% {left: 0px; top: -10vh;}
 }
 
 @-webkit-keyframes descend {
-    0% {left: 0px; top:-80vh;}
-    100% {left: 0px; top: 3vh;}
+    0% {left: 0px; top:-70vh;}
+    100% {left: 0px; top: -10vh;}
 }
 
 .hidden-numbers-container {
@@ -64,8 +63,8 @@ body {
     bottom: -100px;
     display: inline-block;
     width: calc(100%/8);
-    -webkit-animation: slide .8s 1; /* Safari 4.0 - 8.0 */
-    animation: slide .8s 1;
+    -webkit-animation: slide .8s; /* Safari 4.0 - 8.0 */
+    animation: slide .8s;
 }
 
 @keyframes slide {

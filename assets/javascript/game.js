@@ -229,7 +229,7 @@ const gameFunctions = {
         this.newGame();
     },
     easterEgg: function() {
-        if (wins > 4) {
+        if (wins % 5) {
             $(".star").attr("id", "easterEgg");
         }
     }
@@ -239,6 +239,9 @@ $(".star").on("click", function () {
     $(".star").css("display", "none");
     $("#mario").addClass("holographic");
     invincibility.play();
+    setTimeout( function () {
+        $("#mario").removeClass("holographic");
+    }, 16000)
 })
 
 // failed DRY block bounce event listener solutions
