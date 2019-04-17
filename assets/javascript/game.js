@@ -229,7 +229,7 @@ const gameFunctions = {
         this.newGame();
     },
     easterEgg: function() {
-        if (wins % 5) {
+        if ((wins % 5) === 0) {
             $(".star").attr("id", "easterEgg");
         }
     }
