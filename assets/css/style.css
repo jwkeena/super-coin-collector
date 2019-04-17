@@ -64,9 +64,8 @@ body {
     bottom: -100px;
     display: inline-block;
     width: calc(100%/8);
-    -webkit-animation: slide .8s; /* Safari 4.0 - 8.0 */
+    -webkit-animation: slide .8s 1; /* Safari 4.0 - 8.0 */
     animation: slide .8s 1;
-    {animation-timing-function: ease-out;}
 }
 
 @keyframes slide {
