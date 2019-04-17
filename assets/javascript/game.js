@@ -15,6 +15,7 @@ const coinSound4 = new Audio("https://themushroomkingdom.net/sounds/wav/nsmb_coi
 const jumpSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_jump-small.wav")
 const winSound = new Audio("http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Stage_Clear_Sound_Effect.mp3")
 const loseSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_mariodie.wav");
+const invincibility = new Audio("http://vgmpf.com/Wiki/images/e/e1/04_-_Super_Mario_Bros._-_NES_-_Invincible_BGM.ogg")
 
 //toggles logo style
 let switchLogo = true;
@@ -217,6 +218,7 @@ const gameFunctions = {
         wins++;
         $("#wins").text(wins);
         alert("You win! You collected exactly " + targetCoins + " coins!"); //replace later with the custom gif
+        this.easterEgg();
         this.newGame();
     },
     lose: function() {
@@ -225,9 +227,19 @@ const gameFunctions = {
         $("#losses").text(losses);
         alert("You lose! You collected " + currentCoins + " but only needed " + targetCoins + ".");
         this.newGame();
+    },
+    easterEgg: function() {
+        if (wins > 4) {
+            $(".star").attr("id", "easterEgg");
+        }
     }
 }
 
+$(".star").on("click", function () {
+    $(".star").css("display", "none");
+    $("#mario").addClass("holographic");
+    invincibility.play();
+})
 
 // failed DRY block bounce event listener solutions
 

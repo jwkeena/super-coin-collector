@@ -22,11 +22,35 @@ body {
 }
 
 #logo {
-    z-index: -2;
     height: 25vh;
     width: 40vh;
     display: inline-block;
     margin: 0px 0px 10px 0px;
+}
+
+.star {
+    width: 15vh;
+    float: left;
+    position: relative;
+    top: 0vh;
+    display: none;
+    
+}
+
+#easterEgg {
+    display: inline-block;
+    -webkit-animation: descend 6s; /* Safari 4.0 - 8.0 */
+    animation: descend 6s;
+}
+
+@keyframes descend {
+    0% {left: 0px; top:-80vh;}
+    100% {left: 0px; top: evh;}
+}
+
+@-webkit-keyframes descend {
+    0% {left: 0px; top:-80vh;}
+    100% {left: 0px; top: 3vh;}
 }
 
 .hidden-numbers-container {
@@ -56,6 +80,7 @@ body {
     100%  {color: blue; left:0px; bottom:0px;}
     100%  {left:0px; bottom:15px;}
 }
+
 
 .block-container {
     height: calc(100% / 3);
@@ -97,5 +122,28 @@ body {
     width: 125px;
     height: 125px;
     bottom: 30px;
+}
+
+/*Rainbow effect, adapted from https://gist.github.com/ajaegers/52a82619cc191f898ec4*/
+@keyframes rainbow {
+    from {
+        filter: hue-rotate(0deg);
+        -webkit-filter: hue-rotate(0deg);
+        -moz-filter: hue-rotate(0deg);
+        -o-filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
+        -webkit-filter: hue-rotate(360deg);
+        -moz-filter: hue-rotate(360deg);
+        -o-filter: hue-rotate(360deg);
+    }
+}
+
+.holographic {
+    animation: rainbow 1s steps(36) infinite;
+    -webkit-animation: rainbow 1s steps(36) infinite;
+    -moz-animation: rainbow 1s steps(36) infinite;
+    -o-animation: rainbow 1s steps(36) infinite;
 }
 
