@@ -262,7 +262,7 @@ const gameFunctions = {
         winSound.play();
         wins++;
         $("#wins").text(wins);
-        alert("You win! You collected exactly " + targetCoins + " coins!"); //replace later with the custom gif
+        alert("You win! You collected exactly " + targetCoins + " coins!");
         this.easterEgg();
         this.newGame();
     },
@@ -276,6 +276,7 @@ const gameFunctions = {
     easterEgg: function() {
         if ((wins % 5) === 0) {
             $(".star").attr("id", "easterEgg");
+            $(".star").css("display", "inline-block"); //ensures the star shows up every 5 wins (not including invicibility)
         }
     }
 }
