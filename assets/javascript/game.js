@@ -7,15 +7,16 @@ let losses = 0;
 let isPlaying = false;
 
 //all sound files
-const startGameSound = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_mario_lets_go.wav");
-const coinSound1 = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_coin.wav"); //why can't local files be found?
-const coinSound2 = new Audio("https://themushroomkingdom.net/sounds/wav/smw/smw_coin.wav");
-const coinSound3 = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_coin.wav");
-const coinSound4 = new Audio("https://themushroomkingdom.net/sounds/wav/nsmb_coin.wav");
-const jumpSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_jump-small.wav")
-const winSound = new Audio("http://soundfxcenter.com/video-games/super-mario-bros/8d82b5_Super_Mario_Bros_Stage_Clear_Sound_Effect.mp3")
-const loseSound = new Audio("https://themushroomkingdom.net/sounds/wav/smb/smb_mariodie.wav");
-const invincibility = new Audio("http://vgmpf.com/Wiki/images/e/e1/04_-_Super_Mario_Bros._-_NES_-_Invincible_BGM.ogg")
+const startGameSound = new Audio("assets/sounds/sm64_mario_lets_go.wav");
+const coinSound1 = new Audio("assets/sounds/smb_coin.wav"); //why can't local files be found?
+const coinSound2 = new Audio("assets/sounds/smw_coin.wav");
+const coinSound3 = new Audio("assets/sounds/sm64_coin.wav");
+const coinSound4 = new Audio("assets/sounds/nsmb_coin.wav");
+const jumpSound = new Audio("assets/sounds/smb_jump-small.wav")
+const winSound = new Audio("assets/sounds/smb_win.mp3")
+const loseSound = new Audio("assets/sounds/smb_mariodie.wav");
+const invincibility = new Audio("assets/sounds/invincible.ogg");
+const winSound2 = new Audio("assets/sounds/smb_1-up.wav")
 
 //toggles logo style
 let switchLogo = true;
@@ -125,9 +126,20 @@ function collisionCheck() {
             coinSound1.pause();
             coinSound1.currentTime = 0;
             coinSound1.play();  //note the jQuery method: $(coinSound1).trigger("play");
-            currentCoins = currentCoins + hiddenCoins[0];
-            $("#current-coins").text(currentCoins);
-            gameFunctions.checkWinOrLose();
+            
+            if($("#mario").hasClass("holographic")) {
+                currentCoins = targetCoins;
+                $("current-coins").text(currentCoins);
+                ++wins
+                winSound2.pause();
+                winSound2.currentTime = 0;
+                winSound2.play();
+                $("#wins").text(wins);
+            } else {
+                currentCoins = currentCoins + hiddenCoins[0];
+                $("#current-coins").text(currentCoins);
+                gameFunctions.checkWinOrLose();
+            }
     } else if (marioBoundingBox.top < block2BoundingBox.bottom 
         && marioBoundingBox.left < block2BoundingBox.right
         && marioBoundingBox.right > block2BoundingBox.left) {
@@ -140,9 +152,20 @@ function collisionCheck() {
             coinSound2.pause();
             coinSound2.currentTime = 0;
             coinSound2.play();
-            currentCoins = currentCoins + hiddenCoins[1];
-            $("#current-coins").text(currentCoins);
-            gameFunctions.checkWinOrLose();
+
+            if($("#mario").hasClass("holographic")) {
+                currentCoins = targetCoins;
+                $("current-coins").text(currentCoins);
+                ++wins
+                winSound2.pause();
+                winSound2.currentTime = 0;
+                winSound2.play();
+                $("#wins").text(wins);
+            } else {
+                currentCoins = currentCoins + hiddenCoins[1];
+                $("#current-coins").text(currentCoins);
+                gameFunctions.checkWinOrLose();
+            }
     } else if (marioBoundingBox.top < block3BoundingBox.bottom 
         && marioBoundingBox.left < block3BoundingBox.right
         && marioBoundingBox.right > block3BoundingBox.left) {
@@ -155,9 +178,20 @@ function collisionCheck() {
             coinSound3.pause();
             coinSound3.currentTime = 0;
             coinSound3.play();
-            currentCoins = currentCoins + hiddenCoins[2];
-            $("#current-coins").text(currentCoins);
-            gameFunctions.checkWinOrLose();
+
+           if($("#mario").hasClass("holographic")) {
+                currentCoins = targetCoins;
+                $("current-coins").text(currentCoins);
+                ++wins
+                winSound2.pause();
+                winSound2.currentTime = 0;
+                winSound2.play();
+                $("#wins").text(wins);
+            } else {
+                currentCoins = currentCoins + hiddenCoins[2];
+                $("#current-coins").text(currentCoins);
+                gameFunctions.checkWinOrLose();
+            }
     } else if (marioBoundingBox.top < block4BoundingBox.bottom 
         && marioBoundingBox.left < block4BoundingBox.right
         && marioBoundingBox.right > block4BoundingBox.left) {
@@ -170,9 +204,20 @@ function collisionCheck() {
             coinSound4.pause();
             coinSound4.currentTime = 0;
             coinSound4.play();
-            currentCoins = currentCoins + hiddenCoins[3];
-        $("#current-coins").text(currentCoins);
-        gameFunctions.checkWinOrLose();
+           
+            if($("#mario").hasClass("holographic")) {
+                currentCoins = targetCoins;
+                $("current-coins").text(currentCoins);
+                ++wins
+                winSound2.pause();
+                winSound2.currentTime = 0;
+                winSound2.play();
+                $("#wins").text(wins);
+            } else {
+                currentCoins = currentCoins + hiddenCoins[3];
+                $("#current-coins").text(currentCoins);
+                gameFunctions.checkWinOrLose();
+            }
     } else {
         console.log("no collision");
     }
