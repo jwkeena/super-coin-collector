@@ -259,6 +259,8 @@ const gameFunctions = {
         }
     },
     win: function() {
+        winSound.pause();
+        winSound.currentTime = 0;
         winSound.play();
         wins++;
         $("#wins").text(wins);
@@ -267,6 +269,8 @@ const gameFunctions = {
         this.newGame();
     },
     lose: function() {
+        loseSound.pause();
+        loseSound.currentTime = 0;
         loseSound.play();
         losses++;
         $("#losses").text(losses);
@@ -284,9 +288,12 @@ const gameFunctions = {
 $(".star").on("click", function () {
     $(".star").css("display", "none");
     $("#mario").addClass("holographic");
+    winSound.pause();
+    winSound.currentTime = 0;
     invincibility.play();
     setTimeout( function () {
         $("#mario").removeClass("holographic");
+        gameFunctions.newGame();
     }, 16000)
 })
 
